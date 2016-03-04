@@ -18,7 +18,6 @@
   <component name="ChangeListManager">
     <list default="true" id="1cc0d6e8-9864-4417-87a3-dd4ecaefc5a3" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/com/microsoft/band/sdk/sampleapp/accelerometer/BandAccelerometerAppActivity.java" afterPath="$PROJECT_DIR$/src/com/microsoft/band/sdk/sampleapp/accelerometer/BandAccelerometerAppActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/max-test.maxpat" afterPath="$PROJECT_DIR$/max-test.maxpat" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="BandAccelerometerApp.iws" />
@@ -51,33 +50,33 @@
       <file leaf-file-name="BandAccelerometerAppActivity.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/com/microsoft/band/sdk/sampleapp/accelerometer/BandAccelerometerAppActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.23563218">
-              <caret line="294" column="24" selection-start-line="294" selection-start-column="24" selection-end-line="294" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.29347825">
+              <caret line="256" column="24" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#3782#4367#0" expanded="true" />
-                <element signature="e#4366#4367#0" expanded="true" />
-                <element signature="e#4430#5174#0" expanded="true" />
-                <element signature="e#5173#5174#0" expanded="true" />
-                <element signature="e#5230#5617#0" expanded="true" />
-                <element signature="e#5616#5617#0" expanded="true" />
-                <element signature="e#5683#6785#0" expanded="true" />
-                <element signature="e#6784#6785#0" expanded="true" />
-                <element signature="e#6862#7252#0" expanded="true" />
-                <element signature="e#7251#7252#0" expanded="true" />
-                <element signature="e#7373#7711#0" expanded="true" />
-                <element signature="e#7710#7711#0" expanded="true" />
-                <element signature="e#7785#8231#0" expanded="true" />
-                <element signature="e#8230#8231#0" expanded="true" />
-                <element signature="e#9571#9581#0" expanded="true" />
-                <element signature="e#9626#9897#0" expanded="true" />
-                <element signature="e#9896#9897#0" expanded="true" />
-                <element signature="e#9935#10491#0" expanded="true" />
-                <element signature="e#10490#10491#0" expanded="true" />
-                <element signature="e#15142#15279#0" expanded="true" />
-                <element signature="e#15278#15279#0" expanded="true" />
-                <element signature="e#15369#15510#0" expanded="true" />
-                <element signature="e#15509#15510#0" expanded="true" />
+                <element signature="e#3786#4371#0" expanded="true" />
+                <element signature="e#4370#4371#0" expanded="true" />
+                <element signature="e#4434#5178#0" expanded="true" />
+                <element signature="e#5177#5178#0" expanded="true" />
+                <element signature="e#5234#5621#0" expanded="true" />
+                <element signature="e#5620#5621#0" expanded="true" />
+                <element signature="e#5687#6789#0" expanded="true" />
+                <element signature="e#6788#6789#0" expanded="true" />
+                <element signature="e#6866#7256#0" expanded="true" />
+                <element signature="e#7255#7256#0" expanded="true" />
+                <element signature="e#7377#7715#0" expanded="true" />
+                <element signature="e#7714#7715#0" expanded="true" />
+                <element signature="e#7789#8235#0" expanded="true" />
+                <element signature="e#8234#8235#0" expanded="true" />
+                <element signature="e#9600#9610#0" expanded="true" />
+                <element signature="e#9710#9981#0" expanded="true" />
+                <element signature="e#9980#9981#0" expanded="true" />
+                <element signature="e#10019#10575#0" expanded="true" />
+                <element signature="e#10574#10575#0" expanded="true" />
+                <element signature="e#15226#15363#0" expanded="true" />
+                <element signature="e#15362#15363#0" expanded="true" />
+                <element signature="e#15453#15594#0" expanded="true" />
+                <element signature="e#15593#15594#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -915,8 +914,8 @@
     <order />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="459" />
-    <option name="y" value="25" />
+    <option name="x" value="448" />
+    <option name="y" value="172" />
     <option name="width" value="1350" />
     <option name="height" value="958" />
   </component>
@@ -1097,6 +1096,8 @@
     <property name="recentsLimit" value="5" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="02056d6396cfb801" />
     <property name="UI_DESIGNER_EDITOR_MODE.PaletteToolWindowManager.WIDTH" value="91" />
+    <property name="OverrideImplement.combined" value="true" />
+    <property name="OverrideImplement.overriding.sorted" value="false" />
   </component>
   <component name="RunManager" selected="Android Application.BandAccelerometerApp">
     <configuration default="true" type="AndroidRunConfigurationType" factoryName="Android Application">
@@ -1268,7 +1269,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="459" y="25" width="1350" height="958" extended-state="0" />
+    <frame x="448" y="172" width="1350" height="958" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1279,7 +1280,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14014252" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.38836104" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25681618" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -1452,33 +1453,33 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/com/microsoft/band/sdk/sampleapp/accelerometer/BandAccelerometerAppActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.23563218">
-          <caret line="294" column="24" selection-start-line="294" selection-start-column="24" selection-end-line="294" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.29347825">
+          <caret line="256" column="24" selection-start-line="256" selection-start-column="24" selection-end-line="256" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3782#4367#0" expanded="true" />
-            <element signature="e#4366#4367#0" expanded="true" />
-            <element signature="e#4430#5174#0" expanded="true" />
-            <element signature="e#5173#5174#0" expanded="true" />
-            <element signature="e#5230#5617#0" expanded="true" />
-            <element signature="e#5616#5617#0" expanded="true" />
-            <element signature="e#5683#6785#0" expanded="true" />
-            <element signature="e#6784#6785#0" expanded="true" />
-            <element signature="e#6862#7252#0" expanded="true" />
-            <element signature="e#7251#7252#0" expanded="true" />
-            <element signature="e#7373#7711#0" expanded="true" />
-            <element signature="e#7710#7711#0" expanded="true" />
-            <element signature="e#7785#8231#0" expanded="true" />
-            <element signature="e#8230#8231#0" expanded="true" />
-            <element signature="e#9571#9581#0" expanded="true" />
-            <element signature="e#9626#9897#0" expanded="true" />
-            <element signature="e#9896#9897#0" expanded="true" />
-            <element signature="e#9935#10491#0" expanded="true" />
-            <element signature="e#10490#10491#0" expanded="true" />
-            <element signature="e#15142#15279#0" expanded="true" />
-            <element signature="e#15278#15279#0" expanded="true" />
-            <element signature="e#15369#15510#0" expanded="true" />
-            <element signature="e#15509#15510#0" expanded="true" />
+            <element signature="e#3786#4371#0" expanded="true" />
+            <element signature="e#4370#4371#0" expanded="true" />
+            <element signature="e#4434#5178#0" expanded="true" />
+            <element signature="e#5177#5178#0" expanded="true" />
+            <element signature="e#5234#5621#0" expanded="true" />
+            <element signature="e#5620#5621#0" expanded="true" />
+            <element signature="e#5687#6789#0" expanded="true" />
+            <element signature="e#6788#6789#0" expanded="true" />
+            <element signature="e#6866#7256#0" expanded="true" />
+            <element signature="e#7255#7256#0" expanded="true" />
+            <element signature="e#7377#7715#0" expanded="true" />
+            <element signature="e#7714#7715#0" expanded="true" />
+            <element signature="e#7789#8235#0" expanded="true" />
+            <element signature="e#8234#8235#0" expanded="true" />
+            <element signature="e#9600#9610#0" expanded="true" />
+            <element signature="e#9710#9981#0" expanded="true" />
+            <element signature="e#9980#9981#0" expanded="true" />
+            <element signature="e#10019#10575#0" expanded="true" />
+            <element signature="e#10574#10575#0" expanded="true" />
+            <element signature="e#15226#15363#0" expanded="true" />
+            <element signature="e#15362#15363#0" expanded="true" />
+            <element signature="e#15453#15594#0" expanded="true" />
+            <element signature="e#15593#15594#0" expanded="true" />
           </folding>
         </state>
       </provider>

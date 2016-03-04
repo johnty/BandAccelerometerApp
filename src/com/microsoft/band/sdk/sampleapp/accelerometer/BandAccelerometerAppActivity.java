@@ -75,7 +75,8 @@ public class BandAccelerometerAppActivity extends Activity {
 
 	private static OSCPortOut myOSCSender;
 
-	//we need to do networking stuff in an AsyncTask to avoid NetworkOnMainThreadException
+
+    //we need to do networking stuff in an AsyncTask to avoid NetworkOnMainThreadException
 	private class sendOSCTask extends AsyncTask<OSCMessage, Integer, Long> {
 		protected Long doInBackground(OSCMessage... msgs) {
 			try {
@@ -253,7 +254,9 @@ public class BandAccelerometerAppActivity extends Activity {
 
         setupOscEndpoint();
 
+        //get HR consent
         final WeakReference<Activity> reference = new WeakReference<Activity>(this);
+        new HeartRateConsentTask().execute(reference);
 
         btnStart.setOnClickListener(new OnClickListener() {
 			@Override
