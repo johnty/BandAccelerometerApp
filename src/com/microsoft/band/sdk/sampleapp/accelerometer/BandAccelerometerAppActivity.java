@@ -26,6 +26,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.microsoft.band.BandClient;
@@ -54,6 +55,7 @@ import com.illposed.osc.*;
 
 import java.io.IOException;
 import java.net.InetAddress;
+import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -63,6 +65,8 @@ public class BandAccelerometerAppActivity extends Activity {
 	private Button btnStart;
     private Button btnStop;
 	private TextView txtStatus;
+    private TextView txtIP;
+    private TextView txtPORT;
 
 	private static OSCPortOut myOSCSender;
 
@@ -154,30 +158,43 @@ public class BandAccelerometerAppActivity extends Activity {
         }
     };
 
+    private void setupOscEndpoint() {
+
+        //set OSC endpoint
+        String ip_str = txtIP.getText().toString();
+        int port = Integer.parseInt(txtPORT.getText().toString());
+        Log.v("IP=",ip_str);
+        Log.v("PORT=", Integer.toString(port));
+
+        try {
+            myOSCSender = new OSCPortOut(InetAddress.getByName(ip_str), port);
+            OSCMessage msg = new OSCMessage("/hello/world");
+            msg.addArgument("I_am_Band");
+            new sendOSCTask().execute(msg);
+        }
+        catch (UnknownHostException | SocketException e) {
+            e.printStackTrace();
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-		try {
-			myOSCSender = new OSCPortOut(InetAddress.getByName("192.168.0.100"), 7000);
-			OSCMessage msg = new OSCMessage("/hello/world");
-			msg.addArgument("I_am_Band");
-			new sendOSCTask().execute(msg);
-		}
-		catch (UnknownHostException e) {
-			Log.e("ERR", "uknown");
-
-		}
-		catch (SocketException e) {
-            e.printStackTrace();
-		}
-
-
 		txtStatus = (TextView) findViewById(R.id.txtStatus);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
+        txtIP = (EditText) findViewById(R.id.editTextIP);
+        txtPORT = (EditText) findViewById(R.id.editTextPORT);
+
+        //by default, disable stop btn and enable start...
+
+        btnStop.setEnabled(false);
+
+
+        setupOscEndpoint();
 
         final WeakReference<Activity> reference = new WeakReference<Activity>(this);
 
@@ -185,7 +202,10 @@ public class BandAccelerometerAppActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				txtStatus.setText("");
+                setupOscEndpoint();
 				new SensorSubscriptionTask().execute();
+                btnStop.setEnabled(true);
+                btnStart.setEnabled(false);
 			}
 		});
         btnStop.setOnClickListener(new OnClickListener() {
@@ -200,6 +220,8 @@ public class BandAccelerometerAppActivity extends Activity {
                         appendToUI(e.getMessage());
                     }
                 }
+                btnStop.setEnabled(false);
+                btnStart.setEnabled(true);
 
             }
         });
@@ -231,7 +253,7 @@ public class BandAccelerometerAppActivity extends Activity {
 			try {
                 if (getConnectedBandClient()) {
 					appendToUI("Band is connected.\n");
-					client.getSensorManager().registerAccelerometerEventListener(mAccelerometerEventListener, SampleRate.MS16);
+					client.getSensorManager().registerAccelerometerEventListener(mAccelerometerEventListener, SampleRate.MS32);
 					client.getSensorManager().registerSkinTemperatureEventListener(mSkinTemperatureEventListener);
                     client.getSensorManager().registerAmbientLightEventListener(mAmbientLightEventListener);
                     client.getSensorManager().registerGyroscopeEventListener(mGyroEventListener, SampleRate.MS32);

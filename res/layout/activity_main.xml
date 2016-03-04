@@ -42,6 +42,48 @@
                 android:id="@+id/btnStop"
                 android:layout_weight="1" />
         </LinearLayout>
+
+        <Space
+            android:layout_width="20px"
+            android:layout_height="20px" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="IP:"
+                android:id="@+id/textViewI" />
+
+            <EditText
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextIP"
+                android:editable="true"
+                android:digits="0123456789."
+                android:inputType="number|numberDecimal"
+                android:layout_weight="1"
+                android:text="@string/def_ip" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="PORT:"
+                android:id="@+id/textViewP" />
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/editTextPORT"
+                android:text="@string/def_port"
+                android:editable="true"
+                android:inputType="numberDecimal" />
+        </LinearLayout>
     </LinearLayout>
 
 </LinearLayout>
