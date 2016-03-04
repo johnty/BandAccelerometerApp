@@ -26,6 +26,7 @@ Using javaosc (http://www.illposed.com/software/javaosc.html)
 
 Contains a Max/MSP patch for testing. Make sure the android device and host computer is on the same local network and IP/port settings are correct.
 
+![screenshot](max-screenshot.png)
 
 Mar 2015
 Johnty Wang,
