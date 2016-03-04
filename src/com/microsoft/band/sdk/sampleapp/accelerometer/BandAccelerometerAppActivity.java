@@ -17,6 +17,8 @@
 //IN THE SOFTWARE.
 package com.microsoft.band.sdk.sampleapp.accelerometer;
 
+import java.lang.ref.WeakReference;
+
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -35,6 +37,8 @@ import com.microsoft.band.ConnectionState;
 import com.microsoft.band.sensors.BandAccelerometerEvent;
 import com.microsoft.band.sensors.BandAccelerometerEventListener;
 import com.microsoft.band.sensors.BandAmbientLightEventListener;
+import com.microsoft.band.sensors.BandGyroscopeEvent;
+import com.microsoft.band.sensors.BandGyroscopeEventListener;
 import com.microsoft.band.sensors.BandHeartRateEvent;
 import com.microsoft.band.sensors.BandHeartRateEventListener;
 import com.microsoft.band.sensors.BandSkinTemperatureEvent;
@@ -57,6 +61,7 @@ public class BandAccelerometerAppActivity extends Activity {
 
 	private BandClient client = null;
 	private Button btnStart;
+    private Button btnStop;
 	private TextView txtStatus;
 
 	private static OSCPortOut myOSCSender;
@@ -68,7 +73,7 @@ public class BandAccelerometerAppActivity extends Activity {
 				myOSCSender.send(msgs[0]);
 			}
 			catch (IOException e){
-
+                e.printStackTrace();
 			}
 
 
@@ -91,6 +96,22 @@ public class BandAccelerometerAppActivity extends Activity {
 				msg.addArgument(y);
 				msg.addArgument(z);
 				new sendOSCTask().execute(msg);
+            }
+        }
+    };
+
+    private BandGyroscopeEventListener mGyroEventListener = new BandGyroscopeEventListener() {
+        @Override
+        public void onBandGyroscopeChanged(BandGyroscopeEvent bandGyroscopeEvent) {
+            if (bandGyroscopeEvent != null) {
+                float rx = bandGyroscopeEvent.getAngularVelocityX();
+                float ry = bandGyroscopeEvent.getAngularVelocityY();
+                float rz = bandGyroscopeEvent.getAngularVelocityZ();
+                OSCMessage msg = new OSCMessage("/band/gyro");
+                msg.addArgument(rx);
+                msg.addArgument(ry);
+                msg.addArgument(rz);
+                new sendOSCTask().execute(msg);
             }
         }
     };
@@ -142,10 +163,7 @@ public class BandAccelerometerAppActivity extends Activity {
 		try {
 			myOSCSender = new OSCPortOut(InetAddress.getByName("192.168.0.100"), 7000);
 			OSCMessage msg = new OSCMessage("/hello/world");
-			msg.addArgument(3);
-			msg.addArgument(4);
-
-
+			msg.addArgument("I_am_Band");
 			new sendOSCTask().execute(msg);
 		}
 		catch (UnknownHostException e) {
@@ -153,13 +171,16 @@ public class BandAccelerometerAppActivity extends Activity {
 
 		}
 		catch (SocketException e) {
-
-		} catch (IOException e) {
-			e.printStackTrace();
+            e.printStackTrace();
 		}
+
 
 		txtStatus = (TextView) findViewById(R.id.txtStatus);
         btnStart = (Button) findViewById(R.id.btnStart);
+        btnStop = (Button) findViewById(R.id.btnStop);
+
+        final WeakReference<Activity> reference = new WeakReference<Activity>(this);
+
         btnStart.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -167,6 +188,21 @@ public class BandAccelerometerAppActivity extends Activity {
 				new SensorSubscriptionTask().execute();
 			}
 		});
+        btnStop.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                txtStatus.setText("Streaming stopped");
+                if (client != null) {
+                    try {
+                        client.getSensorManager().unregisterAllListeners();
+                    }
+                    catch (BandIOException e) {
+                        appendToUI(e.getMessage());
+                    }
+                }
+
+            }
+        });
     }
 
     @Override
@@ -195,14 +231,13 @@ public class BandAccelerometerAppActivity extends Activity {
 			try {
                 if (getConnectedBandClient()) {
 					appendToUI("Band is connected.\n");
-					client.getSensorManager().registerAccelerometerEventListener(mAccelerometerEventListener, SampleRate.MS32);
+					client.getSensorManager().registerAccelerometerEventListener(mAccelerometerEventListener, SampleRate.MS16);
 					client.getSensorManager().registerSkinTemperatureEventListener(mSkinTemperatureEventListener);
                     client.getSensorManager().registerAmbientLightEventListener(mAmbientLightEventListener);
+                    client.getSensorManager().registerGyroscopeEventListener(mGyroEventListener, SampleRate.MS32);
+
                     if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
                         client.getSensorManager().registerHeartRateEventListener(mHeartRateEventListener);
-                    }
-                    else {
-                        Log.v("VERBOSE", "No HR Consent!!");
                     }
 
 				} else {
@@ -230,15 +265,53 @@ public class BandAccelerometerAppActivity extends Activity {
 		}
 	}
 
+    private class HeartRateConsentTask extends AsyncTask<WeakReference<Activity>, Void, Void> {
+        @Override
+        protected Void doInBackground(WeakReference<Activity>... params) {
+            try {
+                if (getConnectedBandClient()) {
+
+                    if (params[0].get() != null) {
+                        client.getSensorManager().requestHeartRateConsent(params[0].get(), new HeartRateConsentListener() {
+                            @Override
+                            public void userAccepted(boolean consentGiven) {
+                            }
+                        });
+                    }
+                } else {
+                    appendToUI("Band isn't connected. Please make sure bluetooth is on and the band is in range.\n");
+                }
+            } catch (BandException e) {
+                String exceptionMessage="";
+                switch (e.getErrorType()) {
+                    case UNSUPPORTED_SDK_VERSION_ERROR:
+                        exceptionMessage = "Microsoft Health BandService doesn't support your SDK Version. Please update to latest SDK.\n";
+                        break;
+                    case SERVICE_ERROR:
+                        exceptionMessage = "Microsoft Health BandService is not available. Please make sure Microsoft Health is installed and that you have the correct permissions.\n";
+                        break;
+                    default:
+                        exceptionMessage = "Unknown error occured: " + e.getMessage() + "\n";
+                        break;
+                }
+                appendToUI(exceptionMessage);
+
+            } catch (Exception e) {
+                appendToUI(e.getMessage());
+            }
+            return null;
+        }
+    }
+
+
     @Override
     protected void onDestroy() {
         if (client != null) {
             try {
                 client.disconnect().await();
-            } catch (InterruptedException e) {
+            } catch (InterruptedException|BandException e) {
                 // Do nothing as this is happening during destroy
-            } catch (BandException e) {
-                // Do nothing as this is happening during destroy
+                e.printStackTrace();
             }
         }
         super.onDestroy();

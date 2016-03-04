@@ -10,4 +10,5 @@
         3. Press the Start button\n
         4. Data from the accelerometer sensor should be displayed.</string>
     <string name="start">Start</string>
+    <string name="stop">Stop</string>
 </resources>
