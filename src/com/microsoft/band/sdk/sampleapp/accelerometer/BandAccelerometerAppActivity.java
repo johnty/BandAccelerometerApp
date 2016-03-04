@@ -38,6 +38,10 @@ import com.microsoft.band.ConnectionState;
 import com.microsoft.band.sensors.BandAccelerometerEvent;
 import com.microsoft.band.sensors.BandAccelerometerEventListener;
 import com.microsoft.band.sensors.BandAmbientLightEventListener;
+import com.microsoft.band.sensors.BandDistanceEvent;
+import com.microsoft.band.sensors.BandDistanceEventListener;
+import com.microsoft.band.sensors.BandGsrEvent;
+import com.microsoft.band.sensors.BandGsrEventListener;
 import com.microsoft.band.sensors.BandGyroscopeEvent;
 import com.microsoft.band.sensors.BandGyroscopeEventListener;
 import com.microsoft.band.sensors.BandHeartRateEvent;
@@ -49,6 +53,7 @@ import com.microsoft.band.sensors.BandHeartRateEvent;
 import com.microsoft.band.sensors.BandHeartRateEventListener;
 import com.microsoft.band.sensors.HeartRateConsentListener;
 import com.microsoft.band.sensors.BandAmbientLightEvent;
+import com.microsoft.band.sensors.MotionType;
 import com.microsoft.band.sensors.SampleRate;
 
 import com.illposed.osc.*;
@@ -118,6 +123,54 @@ public class BandAccelerometerAppActivity extends Activity {
                 msg.addArgument(rx);
                 msg.addArgument(ry);
                 msg.addArgument(rz);
+                new sendOSCTask().execute(msg);
+            }
+        }
+    };
+
+    private BandGsrEventListener mGSREventListener = new BandGsrEventListener() {
+        @Override
+        public void onBandGsrChanged(BandGsrEvent bandGsrEvent) {
+            if (bandGsrEvent != null) {
+                int gsr = bandGsrEvent.getResistance();
+                OSCMessage msg = new OSCMessage("/band/gsr");
+                msg.addArgument(gsr);
+                new sendOSCTask().execute(msg);
+
+            }
+        }
+    };
+
+    private BandDistanceEventListener mDistanceEventListener = new BandDistanceEventListener() {
+        @Override
+        public void onBandDistanceChanged(BandDistanceEvent bandDistanceEvent) {
+            if (bandDistanceEvent != null) {
+
+
+                String mtype;
+                switch (bandDistanceEvent.getMotionType()) {
+                    case IDLE:
+                        mtype = "idle";
+                        break;
+                    case WALKING:
+                        mtype = "walking";
+                        break;
+                    case JOGGING:
+                        mtype = "jogging";
+                        break;
+                    case RUNNING:
+                        mtype = "running";
+                        break;
+                    default:
+                        mtype = "unknown";
+                        break;
+
+                }
+
+                float speed = bandDistanceEvent.getSpeed();
+                OSCMessage msg = new OSCMessage("/band/motion");
+                msg.addArgument(mtype);
+                msg.addArgument(speed);
                 new sendOSCTask().execute(msg);
             }
         }
@@ -261,6 +314,8 @@ public class BandAccelerometerAppActivity extends Activity {
 					client.getSensorManager().registerSkinTemperatureEventListener(mSkinTemperatureEventListener);
                     client.getSensorManager().registerAmbientLightEventListener(mAmbientLightEventListener);
                     client.getSensorManager().registerGyroscopeEventListener(mGyroEventListener, SampleRate.MS32);
+                    client.getSensorManager().registerDistanceEventListener(mDistanceEventListener);
+                    client.getSensorManager().registerGsrEventListener(mGSREventListener);
 
                     if (client.getSensorManager().getCurrentHeartRateConsent() == UserConsent.GRANTED) {
                         client.getSensorManager().registerHeartRateEventListener(mHeartRateEventListener);
