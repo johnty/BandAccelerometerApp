@@ -8,7 +8,7 @@
 			"architecture" : "x86"
 		}
 ,
-		"rect" : [ 64.0, 136.0, 640.0, 480.0 ],
+		"rect" : [ 353.0, 138.0, 738.0, 376.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -35,7 +35,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 517.0, 113.0, 65.0, 20.0 ],
+					"patching_rect" : [ 515.0, 43.0, 65.0, 20.0 ],
 					"text" : "print other"
 				}
 
@@ -49,7 +49,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 517.0, 86.0, 99.0, 20.0 ],
+					"patching_rect" : [ 515.0, 16.0, 99.0, 20.0 ],
 					"text" : "udpreceive 7002"
 				}
 
@@ -64,7 +64,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 249.0, 406.5, 50.0, 20.0 ]
+					"patching_rect" : [ 247.0, 336.5, 50.0, 20.0 ]
 				}
 
 			}
@@ -78,7 +78,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 224.0, 378.5, 50.0, 20.0 ]
+					"patching_rect" : [ 222.0, 308.5, 50.0, 20.0 ]
 				}
 
 			}
@@ -92,7 +92,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 199.0, 351.5, 50.0, 20.0 ]
+					"patching_rect" : [ 197.0, 281.5, 50.0, 20.0 ]
 				}
 
 			}
@@ -105,7 +105,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "float", "float", "float" ],
-					"patching_rect" : [ 199.0, 322.5, 69.0, 20.0 ],
+					"patching_rect" : [ 197.0, 252.5, 69.0, 20.0 ],
 					"text" : "unpack f f f"
 				}
 
@@ -119,7 +119,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 199.0, 290.5, 98.0, 20.0 ],
+					"patching_rect" : [ 197.0, 220.5, 98.0, 20.0 ],
 					"text" : "route /band/gyro"
 				}
 
@@ -134,7 +134,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 340.0, 231.0, 55.0, 24.0 ]
+					"patching_rect" : [ 338.0, 161.0, 55.0, 24.0 ]
 				}
 
 			}
@@ -147,7 +147,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 340.0, 193.0, 97.0, 20.0 ],
+					"patching_rect" : [ 338.0, 123.0, 97.0, 20.0 ],
 					"text" : "route /band/light"
 				}
 
@@ -162,7 +162,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 511.0, 231.0, 55.0, 24.0 ]
+					"patching_rect" : [ 509.0, 161.0, 55.0, 24.0 ]
 				}
 
 			}
@@ -175,7 +175,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 511.0, 193.0, 123.0, 20.0 ],
+					"patching_rect" : [ 509.0, 123.0, 123.0, 20.0 ],
 					"text" : "route /band/heartrate"
 				}
 
@@ -190,7 +190,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "float", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 199.0, 231.0, 64.0, 24.0 ]
+					"patching_rect" : [ 197.0, 161.0, 64.0, 24.0 ]
 				}
 
 			}
@@ -203,7 +203,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 199.0, 193.0, 123.0, 20.0 ],
+					"patching_rect" : [ 197.0, 123.0, 123.0, 20.0 ],
 					"text" : "route /band/skintemp"
 				}
 
@@ -217,7 +217,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 20.0, 231.0, 167.0, 139.0 ],
+					"patching_rect" : [ 18.0, 161.0, 167.0, 139.0 ],
 					"setstyle" : 2,
 					"size" : 3,
 					"thickness" : 4
@@ -233,7 +233,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 20.0, 193.0, 103.0, 20.0 ],
+					"patching_rect" : [ 18.0, 123.0, 103.0, 20.0 ],
 					"text" : "route /band/accel"
 				}
 
@@ -247,7 +247,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 272.0, 138.0, 99.0, 20.0 ],
+					"patching_rect" : [ 270.0, 68.0, 99.0, 20.0 ],
 					"text" : "udpreceive 7000"
 				}
 

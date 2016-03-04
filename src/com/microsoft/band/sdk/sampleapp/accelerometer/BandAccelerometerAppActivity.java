@@ -55,7 +55,6 @@ import com.illposed.osc.*;
 
 import java.io.IOException;
 import java.net.InetAddress;
-import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
@@ -65,6 +64,7 @@ public class BandAccelerometerAppActivity extends Activity {
 	private Button btnStart;
     private Button btnStop;
 	private TextView txtStatus;
+    private TextView txtStatusGyro;
     private TextView txtIP;
     private TextView txtPORT;
 
@@ -89,12 +89,12 @@ public class BandAccelerometerAppActivity extends Activity {
         @Override
         public void onBandAccelerometerChanged(final BandAccelerometerEvent event) {
             if (event != null) {
-            	appendToUI(String.format(" X = %.3f \n Y = %.3f\n Z = %.3f", event.getAccelerationX(),
-            			event.getAccelerationY(), event.getAccelerationZ()));
-
-				float x = event.getAccelerationX();
+            	float x = event.getAccelerationX();
 				float y = event.getAccelerationY();
 				float z = event.getAccelerationZ();
+
+                appendToUI(String.format(" X = %1.3f   Y = %1.3f   Z = %1.3f", x, y, z));
+
 				OSCMessage msg = new OSCMessage("/band/accel");
 				msg.addArgument(x);
 				msg.addArgument(y);
@@ -111,6 +111,9 @@ public class BandAccelerometerAppActivity extends Activity {
                 float rx = bandGyroscopeEvent.getAngularVelocityX();
                 float ry = bandGyroscopeEvent.getAngularVelocityY();
                 float rz = bandGyroscopeEvent.getAngularVelocityZ();
+
+                appendToGyroTxt(String.format(" rX = %6.2f   rY = %6.2f   rZ = %6.2f", rx, ry, rz));
+
                 OSCMessage msg = new OSCMessage("/band/gyro");
                 msg.addArgument(rx);
                 msg.addArgument(ry);
@@ -184,6 +187,7 @@ public class BandAccelerometerAppActivity extends Activity {
         setContentView(R.layout.activity_main);
 
 		txtStatus = (TextView) findViewById(R.id.txtStatus);
+        txtStatusGyro = (TextView) findViewById(R.id.txtStatusGyro);
         btnStart = (Button) findViewById(R.id.btnStart);
         btnStop = (Button) findViewById(R.id.btnStop);
         txtIP = (EditText) findViewById(R.id.editTextIP);
@@ -343,10 +347,19 @@ public class BandAccelerometerAppActivity extends Activity {
 		this.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-            	txtStatus.setText(string);
+                txtStatus.setText(string);
             }
         });
 	}
+
+    private void appendToGyroTxt(final String string) {
+        this.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txtStatusGyro.setText(string);
+            }
+        });
+    }
 
 	private boolean getConnectedBandClient() throws InterruptedException, BandException {
 		if (client == null) {

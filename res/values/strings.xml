@@ -6,9 +6,11 @@
     
     <string name="steps">Steps to use this app: \n
         1. Pair your band with the phone\n
-        2. Make sure Microsoft Health is installed\n        
-        3. Press the Start button\n
-        4. Data from the accelerometer sensor should be displayed.</string>
+        2. Make sure Microsoft Health is installed\n
+        3. Check IP address and port of receiving device\n
+        4. Press the Start button\n
+        5. Data from the accel/gyro should be displayed and streamed.\n
+        (note: other values will be sent via OSC as well, just not shown on screen)</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="def_ip">192.168.0.100</string>
