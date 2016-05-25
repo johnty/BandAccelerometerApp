@@ -63,6 +63,43 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 
+class OscSender implements Runnable {
+
+    private OSCPortOut myOSCEndpoint;
+
+    public synchronized void setupOSC(String ip_str, int port) {
+        //set OSC endpoint
+        Log.v("IP=",ip_str);
+        Log.v("PORT=", Integer.toString(port));
+
+        try {
+            myOSCEndpoint = new OSCPortOut(InetAddress.getByName(ip_str), port);
+        }
+        catch (UnknownHostException | SocketException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    public synchronized void sendMessage(OSCMessage msg) {
+        try {
+            myOSCEndpoint.send(msg);
+        }
+        catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void run() {
+        System.out.println("Starting OSC thread!");
+    }
+
+    public static void main(String args[]) {
+        (new Thread(new OscSender())).start();
+    }
+
+}
+
 public class BandAccelerometerAppActivity extends Activity {
 
 	private BandClient client = null;
@@ -75,6 +112,7 @@ public class BandAccelerometerAppActivity extends Activity {
 
 	private static OSCPortOut myOSCSender;
 
+    private static OscSender myOSCSenderThread;
 
     //we need to do networking stuff in an AsyncTask to avoid NetworkOnMainThreadException
 	private class sendOSCTask extends AsyncTask<OSCMessage, Integer, Long> {
@@ -105,7 +143,8 @@ public class BandAccelerometerAppActivity extends Activity {
 				msg.addArgument(x);
 				msg.addArgument(y);
 				msg.addArgument(z);
-				new sendOSCTask().execute(msg);
+				//new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
             }
         }
     };
@@ -124,7 +163,8 @@ public class BandAccelerometerAppActivity extends Activity {
                 msg.addArgument(rx);
                 msg.addArgument(ry);
                 msg.addArgument(rz);
-                new sendOSCTask().execute(msg);
+                //new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
             }
         }
     };
@@ -136,7 +176,8 @@ public class BandAccelerometerAppActivity extends Activity {
                 int gsr = bandGsrEvent.getResistance();
                 OSCMessage msg = new OSCMessage("/band/gsr");
                 msg.addArgument(gsr);
-                new sendOSCTask().execute(msg);
+                //new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
 
             }
         }
@@ -172,7 +213,8 @@ public class BandAccelerometerAppActivity extends Activity {
                 OSCMessage msg = new OSCMessage("/band/motion");
                 msg.addArgument(mtype);
                 msg.addArgument(speed);
-                new sendOSCTask().execute(msg);
+                //new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
             }
         }
     };
@@ -184,7 +226,8 @@ public class BandAccelerometerAppActivity extends Activity {
 				float skinTemp = bandSkinTemperatureEvent.getTemperature();
 				OSCMessage msg = new OSCMessage("/band/skintemp");
 				msg.addArgument(skinTemp);
-				new sendOSCTask().execute(msg);
+				//new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
 
 			}
 		}
@@ -198,7 +241,8 @@ public class BandAccelerometerAppActivity extends Activity {
 				int hr = bandHeartRateEvent.getHeartRate();
 				OSCMessage msg = new OSCMessage("/band/heartrate");
 				msg.addArgument(hr);
-				new sendOSCTask().execute(msg);
+				//new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
 			}
 		}
 	};
@@ -210,12 +254,15 @@ public class BandAccelerometerAppActivity extends Activity {
                 int light = bandAmbientLightEvent.getBrightness();
                 OSCMessage msg = new OSCMessage("/band/light");
                 msg.addArgument(light);
-                new sendOSCTask().execute(msg);
+                //new sendOSCTask().execute(msg);
+                myOSCSenderThread.sendMessage(msg);
             }
         }
     };
 
     private void setupOscEndpoint() {
+
+
 
         //set OSC endpoint
         String ip_str = txtIP.getText().toString();
@@ -223,16 +270,20 @@ public class BandAccelerometerAppActivity extends Activity {
         Log.v("IP=",ip_str);
         Log.v("PORT=", Integer.toString(port));
 
-        try {
-            myOSCSender = new OSCPortOut(InetAddress.getByName(ip_str), port);
-            OSCMessage msg = new OSCMessage("/hello/world");
-            msg.addArgument("I_am_Band");
-            new sendOSCTask().execute(msg);
-        }
-        catch (UnknownHostException | SocketException e) {
-            e.printStackTrace();
+        myOSCSenderThread.setupOSC(ip_str, port);
 
-        }
+        return;
+
+//        try {
+//            myOSCSender = new OSCPortOut(InetAddress.getByName(ip_str), port);
+//            OSCMessage msg = new OSCMessage("/hello/world");
+//            msg.addArgument("I_am_Band");
+//            new sendOSCTask().execute(msg);
+//        }
+//        catch (UnknownHostException | SocketException e) {
+//            e.printStackTrace();
+//
+//        }
     }
 
     @Override
@@ -251,6 +302,7 @@ public class BandAccelerometerAppActivity extends Activity {
 
         btnStop.setEnabled(false);
 
+        myOSCSenderThread = new OscSender();
 
         setupOscEndpoint();
 
